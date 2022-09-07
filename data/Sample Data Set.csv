@@ -1,0 +1,16 @@
+,Person_ID,Gender,Race,Diverse
+1,5017423,M,White,FALSE
+2,5017424,F,White,TRUE
+3,5017425,F,Black or African American,TRUE
+4,5017426,F,White,TRUE
+5,5017427,M,White,FALSE
+6,5017428,M,Black or African American,TRUE
+7,5017429,F,Asian,TRUE
+8,5017430,M,White,FALSE
+9,5017431,F,Hispanic or Latino,TRUE
+10,5017432,M,White,FALSE
+11,5017433,M,White,FALSE
+12,5017434,M,Asian,TRUE
+13,5017435,F,Hispanic or Latino,TRUE
+14,5017436,F,White,TRUE
+15,5017437,F,Hispanic or Latino,TRUE
