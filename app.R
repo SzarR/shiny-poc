@@ -3,8 +3,6 @@ library(shiny)
 library(dplyr)
 library(readr)
 library(shinythemes)
-library(shinyWidgets)
-library(shinydashboard)
 library(shinyalert)
 
 ui <- # Define UI for application that draws a histogram
@@ -28,7 +26,7 @@ ui <- # Define UI for application that draws a histogram
 
       # Show a plot of the generated distribution
       mainPanel(
-        #textOutput("Test")
+        verbatimTextOutput('id_demo_status')
       )
     )
   ))
@@ -36,23 +34,32 @@ ui <- # Define UI for application that draws a histogram
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
+  # Read external data file.
   dataframe <- readr::read_csv(file = './data/Sample Data Set.csv')
 
   observeEvent(input$do, {
 
+    checker <-
+      dataframe %>%
+      filter(input$id_var %in% Person_ID) %>%
+      nrow()
 
+    if (checker == 0) {
+      shinyalert(type = 'error', text = 'The ID was not found in the database.')
+    }
 
+  })
 
-  #output$value <- "test"
+output$id_demo_status <- renderText({
 
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+  req(input$do)
 
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+  dataframe %>%
+    filter(Person_ID == input$id_var) %>%
+    mutate(Diverse = ifelse(Diverse == FALSE, "NOT DIVERSE", "DIVERSE")) %>%
+    pull(Diverse)
+
+})
 }
 
 # Run the application
